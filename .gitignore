@@ -1,0 +1,42 @@
+# macOS system files
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# PyCharm / JetBrains IDE settings
+.idea/
+*.iml
+
+# Virtual environments
+venv/
+.env/
+.env*/
+*.venv
+
+# Logs
+*.log
+
+# Node / npm
+node_modules/
+
+# VS Code settings (included just in case)
+.vscode/
+*.code-workspace
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Backup / temporary files
+*.swp
+*.swo
+*.tmp
