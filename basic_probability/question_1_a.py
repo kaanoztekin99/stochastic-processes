@@ -1,3 +1,20 @@
+"""
+Author: Kaan Tekin Öztekin
+
+Description:
+    This script implements Algorithm 1 from the assignment.
+    It generates n IID Uniform(0,1) random samples, computes their
+    estimated CDF, and compares it with the true CDF F(x) = x.
+    The script produces CDF plots for n = 10, 100, and 1000.
+    All plots are saved into the 'outputs/' directory.
+
+Structure:
+    - generate_uniform_samples(n): Generates Uniform(0,1) random samples.
+    - plot_cdf(x_sorted, n): Plots the empirical CDF with proper axis alignment.
+    - save_plot(fig, filename): Saves figures into the outputs folder.
+    - algorithm1(): Executes the full pipeline for n = {10, 100, 1000}.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -9,32 +26,20 @@ def generate_uniform_samples(n):
 # Plot estimated CDF (FINAL)
 def plot_cdf(x_sorted, n):
     y = np.arange(1, n + 1) / n
-
-    # Add (0,0) so the curve starts at the real origin
     x_plot = np.concatenate(([0], x_sorted))
     y_plot = np.concatenate(([0], y))
-
     fig, ax = plt.subplots(figsize=(6, 4))
 
-    # Step plot starting exactly at origin
     ax.step(x_plot, y_plot, where='pre', label=f"Estimated CDF (n={n})")
 
-    # True CDF
     ax.plot([0, 1], [0, 1], 'r--', label="True CDF: F(x)=x")
-
-    # --- CRITICAL PART: Fix axis to make corner EXACT ---
-    # No padding
     ax.margins(x=0, y=0)
-    # Force axes to start at zero exactly
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
-    # Move bottom and left axes to real origin
     ax.spines['left'].set_position(('data', 0))
     ax.spines['bottom'].set_position(('data', 0))
-    # Hide the top and right borders
     ax.spines['right'].set_color('none')
     ax.spines['top'].set_color('none')
-    # Make ticks visible on the axes
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
     ax.set_xlabel("x")
@@ -45,7 +50,6 @@ def plot_cdf(x_sorted, n):
 
     return fig
 
-# Save plot into output folder
 def save_plot(fig, filename):
     os.makedirs("outputs", exist_ok=True)
     filepath = os.path.join("outputs", filename)
